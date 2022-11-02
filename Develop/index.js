@@ -1,7 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const genRead = require('./utils/generateMarkdown');
+const {message} = require('statuses');
 
 // TODO: Create an array of questions for user input
 const questions = [];
@@ -21,7 +21,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter project description',
-            name: 'title',
+            name: 'Project Description',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -30,7 +30,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter installation instructions',
-            name: 'title',
+            name: 'Installation',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -39,7 +39,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter usage information',
-            name: 'title',
+            name: 'Usage',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -48,7 +48,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter contribution guidelines',
-            name: 'title',
+            name: 'Contribution',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -57,7 +57,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter test instructions',
-            name: 'title',
+            name: 'Test',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -66,7 +66,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter licenses used',
-            name: 'title',
+            name: 'Licenses',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -75,7 +75,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter github username',
-            name: 'title',
+            name: 'Github',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -84,7 +84,7 @@ inquirer.prompt(
         {
             type: 'input',
             message: 'Enter email',
-            name: 'title',
+            name: 'Email',
             //validation to check if user entered a proper response
             validate: (value)=>{ if(value){return true} else {return 'Please enter response to continue'}},
         },
@@ -93,10 +93,14 @@ inquirer.prompt(
 
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
-
+function writeToFile(fileName, data) {
+	fs.writeFileSync(fileName, data);
+}
 // TODO: Create a function to initialize app
-function init() {}
-
+function init() {
+    promptUser().then((data) => {
+      writeFile(data);
+    });
+  }
 // Function call to initialize app
 init();
